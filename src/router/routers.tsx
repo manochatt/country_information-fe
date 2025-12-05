@@ -1,11 +1,11 @@
-// import { menu } from "@/configs";
 import { createBrowserRouter } from "react-router-dom";
+// import LandingPage from "../pages/LandingPage";
+import { EventPage } from "@/pages/eventPage";
 
 export const routers = createBrowserRouter([
   {
     path: "/",
-    element: <></>,
-    // children: menu,
+    element: <EventPage />,
   },
   {
     path: "*",
