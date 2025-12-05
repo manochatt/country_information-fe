@@ -1,9 +1,11 @@
 import { configureStore } from "@reduxjs/toolkit";
 import globalLoadingReducer from "@/stores/features/globalLoadingSlice";
+import eventReducer from "@/stores/features/eventSlice";
 
 export const store = configureStore({
   reducer: {
     globalLoading: globalLoadingReducer,
+    event: eventReducer,
   },
 });
 
