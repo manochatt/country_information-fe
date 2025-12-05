@@ -14,3 +14,17 @@ export const listCountries = () => {
       });
   });
 };
+
+export const getCountryByCode = (code: string) => {
+  const url: any = new URL(`${env.BACKEND_URL}/countries/${code}`);
+  return new Promise((resolve, reject) => {
+    axiosApiInstance
+      .get(url)
+      .then((res) => {
+        resolve(res.data);
+      })
+      .catch((reason) => {
+        reject(reason);
+      });
+  });
+};

@@ -5,6 +5,7 @@ interface EventCardProps {
   countries: Country[];
   loading: boolean;
   error: string | null;
+  handleCountryClick: (countryCode: string) => Promise<void>;
 }
 
 const ITEMS_PER_PAGE = 15;
@@ -13,13 +14,9 @@ export const EventCard: React.FC<EventCardProps> = ({
   countries,
   loading,
   error,
+  handleCountryClick,
 }) => {
   const [currentPage, setCurrentPage] = useState(1);
-
-  const handleCountryClick = (countryName: string, alpha2Code: string) => {
-    console.log(`Clicked: ${countryName} (${alpha2Code})`);
-    // Add your navigation or action logic here
-  };
 
   // Calculate pagination
   const totalPages = Math.ceil((countries?.length || 0) / ITEMS_PER_PAGE);
@@ -75,9 +72,7 @@ export const EventCard: React.FC<EventCardProps> = ({
               {paginatedCountries.map((country) => (
                 <button
                   key={country.id}
-                  onClick={() =>
-                    handleCountryClick(country.name, country.alpha2_code)
-                  }
+                  onClick={() => handleCountryClick(country.alpha2_code)}
                   className="flex flex-col items-center justify-center gap-1 p-1.5 sm:p-2 rounded-lg sm:rounded-xl border-2 border-gray-700 bg-gray-800/50 hover:border-gray-600 hover:bg-gray-800/70 hover:scale-[1.05] active:scale-[0.95] transition-all duration-200 cursor-pointer aspect-square"
                 >
                   {/* Flag Image */}
