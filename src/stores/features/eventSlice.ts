@@ -27,22 +27,18 @@ const eventSlice = createSlice({
   extraReducers: (builder) => {
     builder
       .addCase(fetchEvents.pending, (state) => {
-        state.loading = true;
         state.error = null;
       })
       .addCase(fetchEvents.fulfilled, (state, action) => {
-        state.loading = false;
         state.countries = action.payload;
       })
       .addCase(fetchEvents.rejected, (state, action) => {
-        state.loading = false;
         state.error = action.error.message || "Failed to fetch events";
       });
   },
 });
 
 export const selectCountries = (state: RootState) => state.event.countries;
-export const selectLoading = (state: RootState) => state.event.loading;
 export const selectError = (state: RootState) => state.event.error;
 
 export default eventSlice.reducer;

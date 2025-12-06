@@ -3,7 +3,6 @@ import type { Country } from "@/services/eventService";
 
 interface EventCardProps {
   countries: Country[];
-  loading: boolean;
   error: string | null;
   handleCountryClick: (countryCode: string) => Promise<void>;
 }
@@ -12,7 +11,6 @@ const ITEMS_PER_PAGE = 15;
 
 export const EventCard: React.FC<EventCardProps> = ({
   countries,
-  loading,
   error,
   handleCountryClick,
 }) => {
@@ -51,13 +49,6 @@ export const EventCard: React.FC<EventCardProps> = ({
           สะสมเหรียญจากเควสประจำวันที่กำหนดเพื่อแลกรับไอเทม
         </p>
 
-        {/* Loading State */}
-        {loading && (
-          <div className="flex justify-center items-center py-8">
-            <div className="animate-spin rounded-full h-10 w-10 sm:h-12 sm:w-12 border-b-2 border-yellow-400"></div>
-          </div>
-        )}
-
         {/* Error State */}
         {error && (
           <div className="text-red-400 text-xs sm:text-sm py-4">
@@ -66,7 +57,7 @@ export const EventCard: React.FC<EventCardProps> = ({
         )}
 
         {/* Countries Grid */}
-        {!loading && !error && (
+        {!error && (
           <>
             <div className="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-5 lg:grid-cols-6 xl:grid-cols-7 gap-2 sm:gap-3 mb-4 sm:mb-6">
               {paginatedCountries.map((country) => (

@@ -5,18 +5,21 @@ import { EventCard } from "./components/Card";
 import {
   fetchEvents,
   selectCountries,
-  selectLoading,
   selectError,
 } from "@/stores/features/eventSlice";
 import type { AppDispatch } from "@/stores";
 import { eventService, type CountryInfo } from "@/services/eventService";
 import Swal from "sweetalert2";
 import { CountryDialog } from "./components/countryDialog";
+import { LoadingOverlay } from "@/components/ui";
+import { type GlobalLoadingState } from "@/stores/features/globalLoadingSlice";
 
 export const EventPage: React.FC = () => {
   const dispatch = useDispatch<AppDispatch>();
   const countries = useSelector(selectCountries);
-  const loading = useSelector(selectLoading);
+  const globalLoading = useSelector(
+    (state: { globalLoading: GlobalLoadingState }) => state.globalLoading
+  );
   const error = useSelector(selectError);
 
   const [country, setCountry] = useState<CountryInfo | undefined>(undefined);
@@ -30,7 +33,7 @@ export const EventPage: React.FC = () => {
       Swal.fire({
         icon: "error",
         title: "",
-        text: `Cannot fetch country with code: ${countryCode}`,
+        text: `Not found country with code: ${countryCode}`,
       });
     }
   };
@@ -41,10 +44,11 @@ export const EventPage: React.FC = () => {
 
   return (
     <div className="bg-black min-h-screen w-full flex flex-col items-center py-4 md:py-8 overflow-y-auto">
+      <LoadingOverlay isLoading={globalLoading.isLoading} />
+
       <EventHeader />
       <EventCard
         countries={countries}
-        loading={loading}
         error={error}
         handleCountryClick={handleCountryClick}
       />

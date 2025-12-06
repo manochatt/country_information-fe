@@ -40,11 +40,19 @@ export interface ListEventResponse {
 
 export const eventService = {
   listEvent: async (): Promise<ListEventResponse> => {
-    const response = await listCountries();
-    return response as ListEventResponse;
+    try {
+      const response = await listCountries();
+      return response as ListEventResponse;
+    } catch (error) {
+      throw error;
+    }
   },
   getEvent: async (code: string): Promise<GetEventResponse> => {
-    const response = await getCountryByCode(code);
-    return response as GetEventResponse;
+    try {
+      const response = await getCountryByCode(code);
+      return response as GetEventResponse;
+    } catch (error) {
+      throw error;
+    }
   },
 };
